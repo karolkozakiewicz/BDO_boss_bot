@@ -10,15 +10,16 @@ client.remove_command("help")
 functions = bot_functions.BotFunctions()
 
 
-# @client.event
-# async def on_command_error(self, exception):
-#     if isinstance(exception, commands.errors.CommandNotFound):
-#         pass
+@client.event
+async def on_command_error(self, exception):
+    if isinstance(exception, commands.errors.CommandNotFound):
+        pass
 
 @client.command(pass_context=False)
 async def rozsypanka(ctx, *args):
     try:
         if not args:
+            await ctx.channel.purge(limit=1)
             await ctx.send(functions.rozsypanka())
         else:
             await ctx.send(functions.rozsypanka(args))
