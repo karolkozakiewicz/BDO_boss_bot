@@ -2,9 +2,6 @@ from discord.ext import commands, tasks
 import bot_functions
 import connection
 import datetime
-import time
-from itertools import cycle
-
 
 
 client = commands.Bot(command_prefix='.')
@@ -13,10 +10,22 @@ client.remove_command("help")
 functions = bot_functions.BotFunctions()
 
 
-@client.event
-async def on_command_error(self, exception):
-    if isinstance(exception, commands.errors.CommandNotFound):
+# @client.event
+# async def on_command_error(self, exception):
+#     if isinstance(exception, commands.errors.CommandNotFound):
+#         pass
+
+@client.command(pass_context=False)
+async def rozsypanka(ctx, *args):
+    try:
+        if not args:
+            await ctx.send(functions.rozsypanka())
+        else:
+            await ctx.send(functions.rozsypanka(args))
+    except TypeError:
         pass
+
+
 
 @client.command(pass_context=False)
 async def msg(ctx, *args):
