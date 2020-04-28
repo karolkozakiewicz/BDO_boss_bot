@@ -327,3 +327,45 @@ class BotFunctions():
         else:
             #print("FALSE", numbers, wylosowana_liczba)
             return [False, fs, numbers, wylosowana_liczba]
+
+    def rozsypanka(self, *args):
+        try:
+            with open('rozsypanka.json', "r", encoding="utf8") as rozsypanka:
+                self.json = json.load(rozsypanka)
+        except FileNotFoundError:
+            print("File not found")
+
+        if not args:
+            answer = []
+            odp = ""
+            for x in self.json['rozsypanka']['slowo']:
+                answer.append(x)
+                random.shuffle(answer)
+            for x in answer:
+                odp += x
+            return odp
+
+        try:
+            arguments = args[0]
+            if arguments[0] == "show":
+                slowo = self.json['rozsypanka']['slowo']
+                return slowo
+
+            elif arguments[0] == "add":
+                value = arguments[1]
+                self.json['rozsypanka']['slowo'] = value
+                with open('rozsypanka.json', 'w', encoding="utf8") as rozsypanka:
+                    json.dump(self.json, rozsypanka, ensure_ascii=False)
+                return f"```Dodano nowe słowo```"
+
+            else:
+                odp = arguments[0]
+                slowo = self.json['rozsypanka']['slowo']
+                if odp == slowo.lower():
+                    return "```Prawidłowa odpowiedź :)```"
+                else:
+                    return "```Błędna odpowiedź :)```"
+
+        except IndexError:
+            pass
+
