@@ -19,9 +19,9 @@ async def on_command_error(self, exception):
 async def rozsypanka(ctx, *args):
     try:
         if not args:
-            await ctx.channel.purge(limit=1)
             await ctx.send(functions.rozsypanka())
         else:
+            await ctx.channel.purge(limit=1)
             await ctx.send(functions.rozsypanka(args))
     except TypeError:
         pass
@@ -168,6 +168,8 @@ async def auto_message():
     if time_to_send_message == 30:
         await channel.purge(limit=3)
         await channel.send(f" <@&700076061945233409> {functions.next_boss()[0]}")
+        await channel.send("\n")
+        await channel.send(f"```{functions.all_todays_bosses()}```")
 
 
 
