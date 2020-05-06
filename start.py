@@ -16,6 +16,22 @@ async def on_command_error(self, exception):
         pass
 
 @client.command(pass_context=False)
+async def calc(ctx, *args):
+    try:
+        if not args:
+            await ctx.send("Podaj jakąś liczbę")
+        else:
+            # functions.calc(args)[0] - 84.5%
+            # functions.calc(args)[1] - 65%
+            # functions.calc(args)[2] - value
+            # functions.calc(args)[3] - mnożnik
+            await ctx.send(f"```Za {functions.calc(args)[2]} {functions.calc(args)[3]} otrzymasz \n\n"
+                           f"Bez Value packa: {functions.calc(args)[1]} mln \n"
+                           f"Z Value Packiem: {functions.calc(args)[0]}```")
+    except TypeError:
+        pass
+
+@client.command(pass_context=False)
 async def rozsypanka(ctx, *args):
     try:
         if not args:
@@ -25,7 +41,6 @@ async def rozsypanka(ctx, *args):
             await ctx.send(functions.rozsypanka(args))
     except TypeError:
         pass
-
 
 
 @client.command(pass_context=False)
