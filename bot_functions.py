@@ -310,6 +310,8 @@ class BotFunctions():
         """
         return help_list
 
+
+
     def klik(self, *args):
         arguments = list(args[0])
         fs = arguments[0]
@@ -369,3 +371,36 @@ class BotFunctions():
         except IndexError:
             pass
 
+    def calc(self, *args):
+        arguments = list(args[0])
+
+        if len(arguments) == 1:
+            return "Musisz podać 2 argumenty. Np. .calc 652 mln | .calc 1.5 b"
+        elif len(arguments) == 2:
+            value = arguments[0]
+            multiply = arguments[1]
+            try:
+                if multiply == "mln":
+                    mln = int(value) * 1000000
+                    odp = (0.845) * int(mln)
+                    odp = "%.0f" % odp
+                    odp = int(odp) / 1000000
+
+                    odp2 = (0.650) * int(mln)
+                    odp2 = "%.0f" % odp2
+                    odp2 = int(odp2) / 1000000
+                    return [odp, odp2, value, multiply]
+                elif multiply == "b":
+                    b = float(value) * 1000000000
+                    odp = (0.845) * float(b)
+                    odp = "%.0f" % odp
+                    odp = int(odp) / 1000000000
+
+                    odp2 = (0.650) * float(b)
+                    odp2 = "%.0f" % odp2
+                    odp2 = int(odp2) / 1000000000
+                    return [odp, odp2, value, multiply]
+            except Exception as e:
+                print(e)
+        else:
+            return "Błąd"
